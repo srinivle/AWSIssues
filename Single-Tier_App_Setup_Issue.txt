@@ -47,3 +47,5 @@ NACL :
 	JumpBox = All traffic rules open
 
 I have tried all possible ways and checked & contacted the lab assistants and all went vain. Kindly check and investigate and let me know your inputs or help if at all I am doing wrong or missing somewhere or how you were successful and in which way. This applies with Azure as well. There also I have applied rules in NSG repectively and all went vain. No communications/SSH happen among Web & Business and Business & Data and vice versa. However, Web and JumpHost are able to communicate to the world outside.
+
+Kindly provide your inputs or thoughts or solution in both AWS and AZURE. Thank you.
