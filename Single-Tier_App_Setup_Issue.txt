@@ -1,6 +1,9 @@
-As per the "Windows N-tier application on Azure with SQL Server" (https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/n-tier/n-tier-sql-server):
+As per the suggestions and instructions received from Khaja Sir to create a single tier setup such as
+"Windows N-tier application on Azure with SQL Server"
+(https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/n-tier/n-tier-sql-server):
 
-We were not able to establish the connection or SSH from "Web tier subnet" to "Business tier subnet". We have tried all possible ways and methods and even tried all traffic open options as well and still vain. 
+We were not able to establish the connection or SSH from "Web tier subnet" to "Business tier subnet". 
+We have tried all possible ways and methods and even tried all traffic open options as well and still vain. 
 
 I have created my network below way and created 4 instances respectively:
 
