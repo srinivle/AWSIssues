@@ -1,0 +1,49 @@
+As per the "Windows N-tier application on Azure with SQL Server" (https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/n-tier/n-tier-sql-server):
+
+We were not able to establish the connection or SSH from "Web tier subnet" to "Business tier subnet". We have tried all possible ways and methods and even tried all traffic open options as well and still vain. 
+
+I have created my network below way and created 4 instances respectively:
+
+VPC : LearningVPC = IPv4 = 10.0.0.0/16
+Subnet: 
+	Web : IPv4 = 10.0.1.0/24 ; Public IP Enabled
+	Business Subnet : IPv4 = 10.0.2.0/24 ; Public IP Disabled
+	Data Subnet : IPv4 = 10.0.3.0/24 ; Public IP Disabled
+	JumpBox Subnet : IPv4 = 10.0.4.0/24 ; Public IP Enabled
+IGW Created and associated to VPC
+Route table updated as
+	10.0.0.0/16 	local
+	0.0.0.0/0	given IGW
+	Subnets are also associated.
+Security group : 
+   	Web = All traffic open 
+	Business = All traffic open
+	Data = All traffic open
+	JumpBox = All traffic open
+NACL : 
+	Web = All traffic rules open
+	Business =
+		Inbound:	
+			SSH = 10.0.1.0/24 = ALLOW	/	SSH = 0.0.0.0/24 = ALLOW
+			HTTP = 	10.0.1.0/24 = ALLOW	/	HTTP = 	0.0.0.0/24 = ALLOW
+			HTTPS = 10.0.1.0/24 = ALLOW	/ 	HTTPS = 0.0.0.0/24 = ALLOW
+			ICMPv4 = 10.0.1.0/24 = ALLOW	/	ICMPv4 = 0.0.0.0/24 = ALLOW
+		Outbound: 
+			SSH = 10.0.3.0/24 = ALLOW	/	SSH = 0.0.0.0/24 = ALLOW
+			HTTP = 10.0.3.0/24 = ALLOW	/	HTTP = 0.0.0.0/24 = ALLOW
+			HTTPS = 10.0.3.0/24 = ALLOW	/	HTTPS = 0.0.0.0/24 = ALLOW
+			ICMPv4 = 10.0.3.0/24 = ALLOW	/	ICMPv4 = 0.0.0.0/24 = ALLOW
+	Data = 
+		Inbound:
+			SSH = 10.0.2.0/24 = ALLOW	/	SSH = 0.0.0.0/24 = ALLOW
+			HTTP = 10.0.2.0/24 = ALLOW	/	HTTP = 0.0.0.0/24 = ALLOW
+			HTTPS = 10.0.2.0/24 = ALLOW	/	HTTPS = 0.0.0.0/24 = ALLOW
+			ICMPv4 = 10.0.2.0/24 = ALLOW	/	ICMPv4 = 0.0.0.0/24 = ALLOW
+		Outbound:
+			SSH = 10.0.4.0/24 = ALLOW	/	SSH = 0.0.0.0/24 = ALLOW
+			HTTP = 10.0.4.0/24 = ALLOW	/	HTTP = 0.0.0.0/24 = ALLOW
+			HTTPS = 10.0.4.0/24 = ALLOW	/	HTTPS = 0.0.0.0/24 = ALLOW
+			ICMPv4 = 10.0.4.0/24 = ALLOW	/	ICMPv4 = 0.0.0.0/24 = ALLOW
+	JumpBox = All traffic rules open
+
+I have tried all possible ways and checked & contacted the lab assistants and all went vain. Kindly check and investigate and let me know your inputs or help if at all I am doing wrong or missing somewhere or how you were successful and in which way. This applies with Azure as well. There also I have applied rules in NSG repectively and all went vain. No communications/SSH happen among Web & Business and Business & Data and vice versa. However, Web and JumpHost are able to communicate to the world outside.
